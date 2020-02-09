@@ -65,6 +65,7 @@ func main() {
 		ren.Copy(tex, nil, nil)
 		ren.Present()
 	}
+
 	sdl.Delay(2000)
 
 }
