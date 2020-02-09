@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 
 	"github.com/veandco/go-sdl2/sdl"
 )
@@ -55,12 +54,12 @@ func main() {
 	pixels := make([]byte, w*h*4)
 
 	for {
-		rand.Read(pixels)
-		// for y := 0; y < h; y++ {
-		// 	for x := 0; x < w; x++ {
-		// 		pixel(x, y, col{255, 0, 0}, pixels)
-		// 	}
-		// }
+		// rand.Read(pixels)
+		for y := 0; y < h; y++ {
+			for x := 0; x < w; x++ {
+				pixel(x, y, col{byte(x % 255), 0, 0}, pixels)
+			}
+		}
 
 		tex.Update(nil, pixels, w*4)
 		ren.Copy(tex, nil, nil)
