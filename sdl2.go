@@ -1,5 +1,7 @@
 package main
 
+// This is a pretty good SDL2 template
+
 import (
 	"fmt"
 	"log"
@@ -160,6 +162,10 @@ func main() {
 	var useGPU uint32 = sdl.RENDERER_ACCELERATED
 	var rgba uint32 = sdl.PIXELFORMAT_ABGR8888
 
+	err := sdl.Init(sdl.INIT_EVERYTHING)
+	ifNilPanic(err)
+	defer sdl.Quit()
+
 	// Create a window
 	win, err := sdl.CreateWindow("SDL2", anywhere, anywhere, int32(w), int32(h), sdl.WINDOW_SHOWN)
 	ifNilPanic(err)
@@ -198,5 +204,15 @@ func main() {
 	log.Printf("1000 frames took %s\n", elapsed)
 	log.Printf("FPS %v\n", float64(1000)/elapsed.Seconds())
 
-	sdl.Delay(2000)
+	for {
+		// Handle closing the window
+		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
+			switch event.(type) {
+			// Click the close button
+			case *sdl.QuitEvent:
+				return
+			}
+		}
+		sdl.Delay(16)
+	}
 }
